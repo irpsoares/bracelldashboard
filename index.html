@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bracell — Executive Control Tower</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="loading-overlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Carregando Bracell Control Tower...</div>
+</div>
+
+<header class="app-header">
+    <div class="app-header-left">
+        <img src="https://www.bracell.com/wp-content/uploads/2019/04/bracell_logo_FA.png"
+             alt="Bracell" class="app-logo"
+             onerror="this.onerror=null; this.src='img/bracell-logo.png';">
+        <div class="app-title-block">
+            <div class="app-title">Executive Control Tower</div>
+            <div class="app-subtitle">Procurement &amp; Market Intelligence · CoE Suprimentos</div>
+        </div>
+    </div>
+    <div class="app-header-right">
+        <div class="app-status-pill">
+            <span class="status-dot" id="header-status-dot"></span>
+            <span id="header-status-text">Ao vivo</span>
+        </div>
+        <div class="app-time-block">
+            <div class="app-clock" id="header-clock">--:--:--</div>
+            <div class="app-date" id="header-date">—</div>
+        </div>
+    </div>
+</header>
+
+<main class="app-main" id="app-main">
+
+    <!-- 1. SAVING TRACKER -->
+    <section class="page" id="page-saving" data-pagename="Saving Tracker">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Saving Tracker · 2026</div>
+                <div class="page-subtitle">Cost Reduction Initiatives · Workspace breakdown</div>
+            </div>
+            <div class="page-meta">
+                <div>Status</div>
+                <div class="page-meta-value" id="saving-status">—</div>
+            </div>
+        </div>
+        <div class="page-body" id="saving-body"></div>
+    </section>
+
+    <!-- 2. SPEND OVERVIEW -->
+    <section class="page" id="page-spend-overview" data-pagename="Spend Overview">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Spend Overview · 2026 YTD</div>
+                <div class="page-subtitle">Visão consolidada · KPIs operacionais</div>
+            </div>
+            <div class="page-meta">
+                <div>Spend YTD</div>
+                <div class="page-meta-value" id="spend-overview-total">R$ —</div>
+            </div>
+        </div>
+        <div class="page-body" id="spend-overview-body"></div>
+    </section>
+
+    <!-- 3. NOTÍCIAS BRACELL #1 -->
+    <section class="page" id="page-news-bracell-1" data-pagename="Notícias Bracell · Parte 1">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Notícias Bracell</div>
+                <div class="page-subtitle">Imprensa, sustentabilidade e operações</div>
+            </div>
+            <div class="page-meta">
+                <div>Atualizado</div>
+                <div class="page-meta-value" id="news-bracell-1-updated">—</div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="news-grid" id="news-bracell-1-grid"></div>
+        </div>
+    </section>
+
+    <!-- 4. SPEND BU + Categoria -->
+    <section class="page" id="page-spend-breakdown" data-pagename="Spend · BU + Categoria">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Spend Breakdown · 2025 + YTD 2026</div>
+                <div class="page-subtitle">Por Business Unit e Document Category</div>
+            </div>
+            <div class="page-meta">
+                <div>Total Consolidado</div>
+                <div class="page-meta-value" id="spend-breakdown-total">R$ —</div>
+            </div>
+        </div>
+        <div class="page-body grid grid-2">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">Por Business Unit</div>
+                    <div class="panel-badge" id="bu-count">— BUs</div>
+                </div>
+                <div class="panel-body"><div class="bar-list" id="bu-list"></div></div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">Por Document Category</div>
+                    <div class="panel-badge" id="cat-count">— Categorias</div>
+                </div>
+                <div class="panel-body"><div class="bar-list" id="category-list"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. NOTÍCIAS MERCADO #1 -->
+    <section class="page" id="page-news-market-1" data-pagename="Mercado · Parte 1">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Mercado · Petróleo, Câmbio &amp; Celulose</div>
+                <div class="page-subtitle">Tópicos críticos para procurement</div>
+            </div>
+            <div class="page-meta">
+                <div>Fontes</div>
+                <div class="page-meta-value">Reuters · Valor · Bloomberg · Investing</div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="news-grid" id="news-market-1-grid"></div>
+        </div>
+    </section>
+
+    <!-- 6. SPEND TYPES -->
+    <section class="page" id="page-spend-types" data-pagename="Spend · Doc + Material">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Spend por Document Type &amp; Material Type</div>
+                <div class="page-subtitle">Visão SAP — códigos ZOTB, NB, ZPRO, ZSGF</div>
+            </div>
+            <div class="page-meta">
+                <div>Período</div>
+                <div class="page-meta-value">2025 + YTD 2026</div>
+            </div>
+        </div>
+        <div class="page-body grid grid-2">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">Top Document Types</div>
+                    <div class="panel-badge" id="doctype-count">—</div>
+                </div>
+                <div class="panel-body"><div class="bar-list" id="doctype-list"></div></div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">Top Material Types</div>
+                    <div class="panel-badge" id="matltype-count">—</div>
+                </div>
+                <div class="panel-body"><div class="bar-list" id="matltype-list"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. NOTÍCIAS BRACELL #2 -->
+    <section class="page" id="page-news-bracell-2" data-pagename="Notícias Bracell · Parte 2">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Notícias Bracell</div>
+                <div class="page-subtitle">Carreira, eventos e investimentos</div>
+            </div>
+            <div class="page-meta">
+                <div>Atualizado</div>
+                <div class="page-meta-value" id="news-bracell-2-updated">—</div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="news-grid" id="news-bracell-2-grid"></div>
+        </div>
+    </section>
+
+    <!-- 8. TOP VENDORS -->
+    <section class="page" id="page-vendors" data-pagename="Top Vendors">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Top Vendors · Movimento de Ranking</div>
+                <div class="page-subtitle">Concentração e variação de posição entre 2025 e 2026</div>
+            </div>
+            <div class="page-meta">
+                <div>Concentração Top 5</div>
+                <div class="page-meta-value" id="vendor-top5-pct">—%</div>
+            </div>
+        </div>
+        <div class="page-body grid grid-2">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">Top 12 — Spend Total</div>
+                    <div class="panel-badge">Ranking consolidado</div>
+                </div>
+                <div class="panel-body"><div class="bar-list" id="vendors-top-list"></div></div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">Maiores Movimentos de Ranking</div>
+                    <div class="panel-badge">2025 → 2026</div>
+                </div>
+                <div class="panel-body"><div class="bar-list" id="vendors-rank-list"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. NOTÍCIAS MERCADO #2 -->
+    <section class="page" id="page-news-market-2" data-pagename="Mercado · Parte 2">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Mercado · Energia, Inflação &amp; Macro</div>
+                <div class="page-subtitle">Indicadores macroeconômicos e energia</div>
+            </div>
+            <div class="page-meta">
+                <div>Fontes</div>
+                <div class="page-meta-value">UOL · Valor · Bloomberg · Investing</div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="news-grid" id="news-market-2-grid"></div>
+        </div>
+    </section>
+
+    <!-- 10. CONTRACT MIX -->
+    <section class="page" id="page-contract-mix" data-pagename="Contract Mix">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Contract Mix · Spot vs Consumption Contract</div>
+                <div class="page-subtitle">Indicador de governança e estratégia de sourcing</div>
+            </div>
+            <div class="page-meta">
+                <div>Spot 2026 YTD</div>
+                <div class="page-meta-value" id="spot-pct-2026">—%</div>
+            </div>
+        </div>
+        <div class="page-body" id="contract-mix-body"></div>
+    </section>
+
+    <!-- 11. INDICADORES #1 -->
+    <section class="page" id="page-indicators-1" data-pagename="Indicadores · Energia &amp; Câmbio">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Mercado · Energia &amp; Câmbio</div>
+                <div class="page-subtitle">Brent · Henry Hub · Dólar · Euro</div>
+            </div>
+            <div class="page-meta">
+                <div>Última atualização</div>
+                <div class="page-meta-value" id="indicators-1-updated">—</div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="indicators-2x2-grid" id="indicators-1-grid"></div>
+        </div>
+    </section>
+
+    <!-- 12. INDICADORES #2 -->
+    <section class="page" id="page-indicators-2" data-pagename="Indicadores · Combustíveis">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Mercado · Combustíveis</div>
+                <div class="page-subtitle">WTI · Diesel Paulínia · Cubatão · São Francisco do Conde</div>
+            </div>
+            <div class="page-meta">
+                <div>Última atualização</div>
+                <div class="page-meta-value" id="indicators-2-updated">—</div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="indicators-2x2-grid" id="indicators-2-grid"></div>
+        </div>
+    </section>
+
+    <!-- 13. NOTÍCIAS MERCADO #3 -->
+    <section class="page" id="page-news-market-3" data-pagename="Mercado · Parte 3">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Mercado · Diesel, Frete &amp; Commodities</div>
+                <div class="page-subtitle">Custos operacionais e logística</div>
+            </div>
+            <div class="page-meta">
+                <div>Fontes</div>
+                <div class="page-meta-value">ANP · Valor · UOL · Bloomberg</div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="news-grid" id="news-market-3-grid"></div>
+        </div>
+    </section>
+
+    <!-- 14. INDICADORES #3 -->
+    <section class="page" id="page-indicators-3" data-pagename="Indicadores · Químicos &amp; Energia">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Mercado · Químicos &amp; Energia Elétrica</div>
+                <div class="page-subtitle">Soda Cáustica · Enxofre · Energia SE · Energia NE</div>
+            </div>
+            <div class="page-meta">
+                <div>Última atualização</div>
+                <div class="page-meta-value" id="indicators-3-updated">—</div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="indicators-2x2-grid" id="indicators-3-grid"></div>
+        </div>
+    </section>
+
+    <!-- 15. INDICADORES #4 -->
+    <section class="page" id="page-indicators-4" data-pagename="Indicadores · Macro">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Mercado · Macroeconômicos</div>
+                <div class="page-subtitle">IPCA · IGP-M · Selic · INCTL Frete</div>
+            </div>
+            <div class="page-meta">
+                <div>Última atualização</div>
+                <div class="page-meta-value" id="indicators-4-updated">—</div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="indicators-2x2-grid" id="indicators-4-grid"></div>
+        </div>
+    </section>
+
+    <!-- 16. NOTÍCIAS MERCADO #4 -->
+    <section class="page" id="page-news-market-4" data-pagename="Mercado · Parte 4">
+        <div class="page-header">
+            <div class="page-title-block">
+                <div class="page-title">Mercado · Indústria &amp; Sustentabilidade</div>
+                <div class="page-subtitle">Tendências e desenvolvimento empresarial</div>
+            </div>
+            <div class="page-meta">
+                <div>Fontes</div>
+                <div class="page-meta-value">Valor · UOL · Bloomberg · CNN</div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="news-grid" id="news-market-4-grid"></div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="app-footer">
+    <div class="page-dots" id="page-dots"></div>
+    <div class="footer-page-name" id="footer-page-name">—</div>
+    <div class="footer-progress">
+        <div class="footer-progress-bar" id="footer-progress-bar"></div>
+    </div>
+    <div class="footer-actions">
+        <button class="btn-icon" id="btn-prev" title="Anterior (←)">‹</button>
+        <button class="btn-icon" id="btn-pause" title="Pausar (espaço)">II</button>
+        <button class="btn-icon" id="btn-next" title="Próxima (→)">›</button>
+        <button class="btn-icon" id="btn-refresh" title="Atualizar dados (R)">↻</button>
+        <button class="btn-icon" id="btn-fullscreen" title="Tela cheia (F11)">⛶</button>
+    </div>
+</footer>
+
+<script src="js/data_adapter.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
